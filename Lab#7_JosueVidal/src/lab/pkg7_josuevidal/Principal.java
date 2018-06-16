@@ -5,8 +5,11 @@
  */
 package lab.pkg7_josuevidal;
 
+//import java.io.Piezas;
 import java.util.ArrayList;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeModel;
 
 /**
  *
@@ -49,6 +52,10 @@ public class Principal extends javax.swing.JFrame {
         cb_padre = new javax.swing.JComboBox<>();
         jButton1 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tre = new javax.swing.JTree();
+        jButton3 = new javax.swing.JButton();
+        cb_tree = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -213,15 +220,54 @@ public class Principal extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Creacion", jPanel1);
 
+        jPanel2.setBackground(new java.awt.Color(0, 204, 204));
+
+        javax.swing.tree.DefaultMutableTreeNode treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("root");
+        tre.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
+        jScrollPane1.setViewportView(tre);
+
+        jButton3.setText("Ensamblar");
+        jButton3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton3MouseClicked(evt);
+            }
+        });
+
+        cb_tree.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cb_treeActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 691, Short.MAX_VALUE)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(125, 125, 125)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(40, 40, 40)
+                        .addComponent(jButton3))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(184, 184, 184)
+                        .addComponent(cb_tree, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(158, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 428, Short.MAX_VALUE)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap(20, Short.MAX_VALUE)
+                .addComponent(cb_tree, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addComponent(jButton3)
+                        .addGap(80, 80, 80))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(46, 46, 46))))
         );
 
         jTabbedPane1.addTab("Ensamblaje", jPanel2);
@@ -242,30 +288,96 @@ public class Principal extends javax.swing.JFrame {
 
     private void tf_tiempoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tf_tiempoActionPerformed
         // TODO add your handling code here:
-        piezas.add(new Piezas(tf_nombre.getText(), tf_material.getText(), (String) cb_padre.getSelectedItem(), Integer.parseInt(tf_tiempo.getText())));
+        /*piezas.add(new Piezas(tf_nombre.getText(), tf_material.getText(), (Piezas) cb_padre.getSelectedItem(), Integer.parseInt(tf_tiempo.getText())));
         DefaultComboBoxModel model = new DefaultComboBoxModel(piezas.toArray());
         cb_padre.setModel(model);
+         Piezas p = new Piezas(tf_nombre.getText(), tf_material.getText(), (Piezas) cb_padre.getSelectedItem(), Integer.parseInt(tf_tiempo.getText()));
+        for (Piezas a : piezas) {
+            if(p.getPadre().equals(a.getPadre())){
+               piezas.add(p);
+            }
+        }
+        piezas.add(p);
+       // DefaultComboBoxModel model = (DefaultComboBoxModel) cb_padre.getModel();
+        model.addElement(p);
+        cb_padre.setModel(model);*/
     }//GEN-LAST:event_tf_tiempoActionPerformed
 
     private void cb_padreMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cb_padreMouseClicked
-        piezas.add(new Piezas(tf_nombre.getText(), tf_material.getText(), (String) cb_padre.getSelectedItem(), Integer.parseInt(tf_tiempo.getText())));
+        /*piezas.add(new Piezas(tf_nombre.getText(), tf_material.getText(), null, Integer.parseInt(tf_tiempo.getText())));
         DefaultComboBoxModel model = new DefaultComboBoxModel(piezas.toArray());
-        cb_padre.setModel(model);
+        cb_padre.setModel(model);*/
     }//GEN-LAST:event_cb_padreMouseClicked
 
     private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
         // boton crear carro
-        carros.add(new Carro(tf_carro.getText()));
-        DefaultComboBoxModel modelo = new DefaultComboBoxModel(carros.toArray());
-        cb_padre.setModel(modelo);
+        Carro nuevaCarro = new Carro(tf_carro.getText());
+        carros.add(nuevaCarro);
+        cb_padre.addItem(nuevaCarro);
+        cb_tree.addItem(nuevaCarro);
     }//GEN-LAST:event_jButton2MouseClicked
 
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
-        DefaultComboBoxModel model = (DefaultComboBoxModel) cb_padre.getModel();
-        model.addElement(tf_nombre.getText());
-        cb_padre.setModel(model);
+        //boton crear pieza
+        DefaultComboBoxModel modelo = (DefaultComboBoxModel) cb_padre.getModel();
+        Piezas x;
+        if (cb_padre.getSelectedItem() instanceof Piezas) {
+            Piezas padre = (Piezas) modelo.getSelectedItem();
+            
+            x = new Piezas(tf_nombre.getText(), tf_material.getText(), (Piezas) cb_padre.getSelectedItem(), Integer.parseInt(tf_tiempo.getText()));
+            padre.getHijas().add(x);
+            modelo.setSelectedItem(padre);
+            modelo.addElement(x);
+           
+        } else {
+            Carro padre = carros.get(carros.indexOf((Carro) modelo.getSelectedItem()));
+            x = new Piezas(tf_nombre.getText(), tf_material.getText(), null, Integer.parseInt(tf_tiempo.getText()));
+            padre.getPiezas().add(x);
+            modelo.setSelectedItem(padre);
+            modelo.addElement(x);
+            
+            
+        }
+        cb_padre.setModel(modelo);
+
+
     }//GEN-LAST:event_jButton1MouseClicked
 
+    private void cb_treeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cb_treeActionPerformed
+        
+        Carro c = (Carro)cb_tree.getSelectedItem();
+        System.out.println(c.getPiezas());
+        ArrayList p = c.getPiezas();
+        DefaultMutableTreeNode r = new DefaultMutableTreeNode(c);
+        listar_todo(p,r);
+        DefaultTreeModel m = new DefaultTreeModel(r);
+        tre.setModel(m);
+    }//GEN-LAST:event_cb_treeActionPerformed
+
+    private void jButton3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton3MouseClicked
+        // ensamblar
+        Hilos hilo= new Hilos((Carro)cb_tree.getSelectedItem());
+        hilo.start();
+    }//GEN-LAST:event_jButton3MouseClicked
+    public void listar_todo(ArrayList p, DefaultMutableTreeNode nodo) {
+        try {
+        
+            ArrayList<Piezas> l3 = p;
+          
+            for (Piezas temp : l3) {
+                if (temp.getHijas().isEmpty()) {
+                    DefaultMutableTreeNode n = new DefaultMutableTreeNode(temp.toString());
+                    nodo.add(n);
+                } else {
+                    DefaultMutableTreeNode n = new DefaultMutableTreeNode(temp.toString());
+                    nodo.add(n);
+                    listar_todo(temp.getHijas(), n);
+                }
+            }
+        } catch (Exception e) {
+        }
+    }
+      
     /**
      * @param args the command line arguments
      */
@@ -302,9 +414,11 @@ public class Principal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox<String> cb_padre;
+    private javax.swing.JComboBox<Object> cb_padre;
+    private javax.swing.JComboBox<Object> cb_tree;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
@@ -316,11 +430,13 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTextField tf_carro;
     private javax.swing.JTextField tf_material;
     private javax.swing.JTextField tf_nombre;
     private javax.swing.JTextField tf_tiempo;
+    private javax.swing.JTree tre;
     // End of variables declaration//GEN-END:variables
     ArrayList<Carro> carros = new ArrayList();
     ArrayList<Piezas> piezas = new ArrayList();

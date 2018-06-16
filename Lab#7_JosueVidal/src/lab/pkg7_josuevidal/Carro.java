@@ -14,7 +14,7 @@ import java.util.ArrayList;
 public class Carro {
 
     private String nombre;
-    private ArrayList piezas = new ArrayList();
+    private ArrayList<Piezas> pieces = new ArrayList();
 
     public Carro() {
     }
@@ -32,12 +32,21 @@ public class Carro {
     }
 
     public ArrayList getPiezas() {
-        return piezas;
+        return pieces;
     }
 
     public void setPiezas(ArrayList piezas) {
-        this.piezas = piezas;
+        this.pieces = piezas;
     }
+
+    public ArrayList<Piezas> getPieces() {
+        return pieces;
+    }
+
+    public void setPieces(ArrayList<Piezas> pieces) {
+        this.pieces = pieces;
+    }
+    
 
     @Override
     public String toString() {
